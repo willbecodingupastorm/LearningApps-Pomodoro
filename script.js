@@ -43,6 +43,25 @@ function showFocusModal() {
     input.focus();
 
     return new Promise((resolve) => {
+        // Handle click outside
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+                input.value = '';
+                resolve('');
+            }
+        });
+
+        // Handle escape key
+        document.addEventListener('keydown', function escapeHandler(e) {
+            if (e.key === 'Escape') {
+                modal.classList.remove('active');
+                input.value = '';
+                document.removeEventListener('keydown', escapeHandler);
+                resolve('');
+            }
+        });
+
         submit.onclick = () => {
             const focus = input.value;
             modal.classList.remove('active');
@@ -97,11 +116,12 @@ async function startTimer() {
 
     if (isWorkTime && !currentFocus) {
         currentFocus = await showFocusModal();
-        if (currentFocus) {
-            const focusTextElement = document.getElementById('focus-text');
-            focusTextElement.innerHTML = `Focusing on: <span>${currentFocus}</span>`;
-            focusTextElement.classList.add('active');
+        if (!currentFocus) {
+            return; // Exit if no focus was set
         }
+        const focusTextElement = document.getElementById('focus-text');
+        focusTextElement.innerHTML = `Focusing on: <span>${currentFocus}</span>`;
+        focusTextElement.classList.add('active');
     }
 
     timerId = setInterval(() => {
@@ -113,7 +133,6 @@ async function startTimer() {
             timerId = null;
             switchMode();
             if (!isWorkTime) {
-                // Clear focus when switching to break mode
                 currentFocus = '';
                 document.getElementById('focus-text').textContent = '';
                 document.getElementById('focus-text').classList.remove('active');
