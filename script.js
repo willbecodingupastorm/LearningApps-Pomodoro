@@ -40,7 +40,10 @@ function switchMode() {
     isWorkTime = !isWorkTime;
     timeLeft = isWorkTime ? WORK_TIME : BREAK_TIME;
     modeText.textContent = isWorkTime ? 'Time to focus!' : 'Take a break!';
-    toggleButton.textContent = isWorkTime ? 'Switch to Break' : 'Switch to Work';
+    const toggleButton = document.getElementById('toggle-mode');
+    toggleButton.innerHTML = isWorkTime ? 
+        '<i class="fas fa-sun"></i><span>Work Mode</span>' : 
+        '<i class="fas fa-coffee"></i><span>Break Mode</span>';
     updateDisplay(timeLeft);
 }
 

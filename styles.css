@@ -81,4 +81,74 @@ h1 {
     display: flex;
     justify-content: center;
     gap: 1rem;
-} 
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.mode-toggle-container {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 1rem;
+    margin-bottom: 1rem;
+}
+
+.mode-toggle {
+    background: none;
+    border: none;
+    color: #9b59b6;  /* Purple color */
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.mode-toggle:hover {
+    transform: translateY(-2px);
+    color: #8e44ad;  /* Darker purple on hover */
+}
+
+.mode-container {
+    display: flex;
+    justify-content: center;
+    margin: 1.5rem 0;
+    width: 100%;
+    max-width: 300px;
+    margin: 1.5rem auto;
+}
+
+.mode-button {
+    width: 100%;
+    font-size: 1.1rem;
+    padding: 1rem 2rem;
+    cursor: pointer;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.mode-button:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
+.mode-button i {
+    font-size: 1.2rem;
+}
