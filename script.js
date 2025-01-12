@@ -104,3 +104,10 @@ resetButton.addEventListener('click', resetTimer);
 // Initialize the display
 timeLeft = WORK_TIME;
 updateDisplay(timeLeft); 
+
+const addTimeButton = document.getElementById('add-time');
+
+addTimeButton.addEventListener('click', () => {
+    timeLeft += 5 * 60; // Add 5 minutes in seconds
+    updateDisplay(timeLeft);
+}); 
