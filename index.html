@@ -10,6 +10,7 @@
 <body>
     <div class="container">
         <h1>Pomodoro Timer</h1>
+        <div id="focus-text" class="focus-text"></div>
         <div class="timer">
             <span id="minutes">25</span>:<span id="seconds">00</span>
         </div>
@@ -28,6 +29,24 @@
             <span id="mode-text">Ready to crush some tomatoes?</span>
         </div>
     </div>
+
+    <div id="name-modal" class="modal">
+        <div class="modal-content">
+            <h2>Welcome!</h2>
+            <p>What's your name?</p>
+            <input type="text" id="name-input" placeholder="Enter your name" class="modal-input">
+            <button id="name-submit" class="modal-button">Continue</button>
+        </div>
+    </div>
+
+    <div id="focus-modal" class="modal">
+        <div class="modal-content">
+            <p>What are you focusing on?</p>
+            <input type="text" id="focus-input" placeholder="Enter your focus" class="modal-input">
+            <button id="focus-submit" class="modal-button">Start Session</button>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html> 

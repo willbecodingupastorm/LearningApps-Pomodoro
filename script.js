@@ -2,6 +2,7 @@ let timeLeft;
 let timerId = null;
 let isWorkTime = true;
 let userName;
+let currentFocus = '';
 
 const minutesDisplay = document.getElementById('minutes');
 const secondsDisplay = document.getElementById('seconds');
@@ -12,11 +13,51 @@ const modeText = document.getElementById('mode-text');
 const WORK_TIME = 25 * 60; // 25 minutes in seconds
 const BREAK_TIME = 5 * 60; // 5 minutes in seconds
 
-// Function to get user's name and update title
-function getUserNameAndUpdateTitle() {
-    userName = prompt("Welcome! What's your name?") || "Friend";  // Default to "Friend" if user cancels or enters nothing
-    
-    // Update both the page title and the h1 element
+function showNameModal() {
+    const modal = document.getElementById('name-modal');
+    const input = document.getElementById('name-input');
+    const submit = document.getElementById('name-submit');
+
+    modal.classList.add('active');
+    input.focus();
+
+    return new Promise((resolve) => {
+        submit.onclick = () => {
+            const name = input.value || "Friend";
+            modal.classList.remove('active');
+            resolve(name);
+        };
+
+        input.onkeypress = (e) => {
+            if (e.key === 'Enter') submit.click();
+        };
+    });
+}
+
+function showFocusModal() {
+    const modal = document.getElementById('focus-modal');
+    const input = document.getElementById('focus-input');
+    const submit = document.getElementById('focus-submit');
+
+    modal.classList.add('active');
+    input.focus();
+
+    return new Promise((resolve) => {
+        submit.onclick = () => {
+            const focus = input.value;
+            modal.classList.remove('active');
+            input.value = '';
+            resolve(focus);
+        };
+
+        input.onkeypress = (e) => {
+            if (e.key === 'Enter') submit.click();
+        };
+    });
+}
+
+async function getUserNameAndUpdateTitle() {
+    userName = await showNameModal();
     document.title = `${userName}'s Pomodoro Timer`;
     document.querySelector('h1').textContent = `${userName}'s Pomodoro Timer`;
 }
@@ -47,11 +88,20 @@ function switchMode() {
     updateDisplay(timeLeft);
 }
 
-function startTimer() {
+async function startTimer() {
     if (timerId !== null) return;
     
     if (!timeLeft) {
         timeLeft = WORK_TIME;
+    }
+
+    if (isWorkTime && !currentFocus) {
+        currentFocus = await showFocusModal();
+        if (currentFocus) {
+            const focusTextElement = document.getElementById('focus-text');
+            focusTextElement.innerHTML = `Focusing on: <span>${currentFocus}</span>`;
+            focusTextElement.classList.add('active');
+        }
     }
 
     timerId = setInterval(() => {
@@ -62,6 +112,12 @@ function startTimer() {
             clearInterval(timerId);
             timerId = null;
             switchMode();
+            if (!isWorkTime) {
+                // Clear focus when switching to break mode
+                currentFocus = '';
+                document.getElementById('focus-text').textContent = '';
+                document.getElementById('focus-text').classList.remove('active');
+            }
             alert(isWorkTime ? 'Break is over! Time to work!' : 'Work time is over! Take a break!');
         }
     }, 1000);
@@ -70,13 +126,16 @@ function startTimer() {
 }
 
 function resetTimer() {
-    clearInterval(timerId);          // Stops the current timer
-    timerId = null;                  // Clears the timer ID
-    isWorkTime = true;               // Sets the mode to "work time"
-    timeLeft = WORK_TIME;            // Resets the time to the default work duration
-    modeText.textContent = 'Ready to focus?';  // Updates the display text to show "Ready to focus?"
-    updateDisplay(timeLeft);         // Updates the timer display
-    startButton.textContent = 'Start';   // Changes the button text to "Start"
+    clearInterval(timerId);
+    timerId = null;
+    isWorkTime = true;
+    timeLeft = WORK_TIME;
+    currentFocus = ''; // Clear the current focus
+    modeText.textContent = 'Ready to focus?';
+    document.getElementById('focus-text').textContent = '';
+    document.getElementById('focus-text').classList.remove('active');
+    updateDisplay(timeLeft);
+    startButton.textContent = 'Start';
 }
 
 // Add this to your event listeners section

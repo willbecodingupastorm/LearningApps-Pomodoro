@@ -12,7 +12,7 @@ body {
 .container {
     text-align: center;
     background-color: #2f3542;
-    padding: 2.5rem;
+    padding: 2rem;
     border-radius: 16px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.15);
@@ -22,7 +22,7 @@ body {
 .timer {
     font-size: 5rem;
     font-weight: 600;
-    margin: 2rem 0;
+    margin: 1.5rem 0;
     color: #f1f2f6;
     text-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
 }
@@ -74,7 +74,7 @@ body {
 h1 {
     color: #f1f2f6;
     font-weight: 600;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     font-size: 2.2rem;
 }
 
@@ -160,5 +160,118 @@ h1 {
 
 .controls button.add-time-button:hover {
     background-color: #8e44ad;  /* Darker purple on hover */
+    transform: translateY(-2px);
+}
+
+.focus-text {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%) translateY(-20px);
+    width: 100%;
+    max-width: 450px;
+    opacity: 0;
+    transition: all 0.3s ease;
+    height: 0;
+    overflow: hidden;
+    font-size: 1.6rem;
+    color: #f1f2f6;
+}
+
+.focus-text.active {
+    position: relative;
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+    margin: 0.5rem auto 1rem;
+    min-height: 1.8rem;
+    padding: 0.8rem;
+    height: auto;
+    font-weight: 400;
+    background-color: rgba(52, 152, 219, 0.1);
+    border-radius: 8px;
+    border: 1px solid rgba(52, 152, 219, 0.2);
+    backdrop-filter: blur(8px);
+}
+
+.focus-text span {
+    font-style: italic;
+    color: #3498db;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background-color: #2f3542;
+    padding: 3rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    width: 80%;
+    max-width: 450px;
+    text-align: center;
+    margin: 0 2rem;
+}
+
+.modal-content h2 {
+    font-size: 2.5rem;
+    color: #f1f2f6;
+    margin-bottom: 1rem;
+}
+
+.modal-content p {
+    font-size: 1.4rem;
+    color: #a4b0be;
+    margin-bottom: 2rem;
+}
+
+.modal-input {
+    width: calc(100% - 3rem);
+    padding: 1rem 1.5rem;
+    margin-bottom: 2rem;
+    border: 2px solid rgba(52, 152, 219, 0.3);
+    border-radius: 12px;
+    background-color: #404756;
+    color: #f1f2f6;
+    font-size: 1.3rem;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+.modal-input:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+.modal-button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 1rem 2.5rem;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.modal-button:hover {
+    background-color: #2980b9;
     transform: translateY(-2px);
 }
