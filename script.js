@@ -124,6 +124,9 @@ async function startTimer() {
         focusTextElement.classList.add('active');
     }
 
+    // Show reset button when timer starts
+    document.getElementById('reset').classList.remove('hidden');
+
     timerId = setInterval(() => {
         timeLeft--;
         updateDisplay(timeLeft);
@@ -149,10 +152,12 @@ function resetTimer() {
     timerId = null;
     isWorkTime = true;
     timeLeft = WORK_TIME;
-    currentFocus = ''; // Clear the current focus
+    currentFocus = '';
     modeText.textContent = 'Ready to focus?';
     document.getElementById('focus-text').textContent = '';
     document.getElementById('focus-text').classList.remove('active');
+    // Hide reset button when timer is reset
+    document.getElementById('reset').classList.add('hidden');
     updateDisplay(timeLeft);
     startButton.textContent = 'Start';
 }
